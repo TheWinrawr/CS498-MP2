@@ -53,14 +53,14 @@ class PokemonList extends Component {
 	render() {
 		let idList = helper.getIdList(this.props.list);
 		return (
-			<div>
+			<div className>
 				<Button.Group>
 					<Button content = 'Prev' disabled = {this.state.pageIndex === 0} onClick = {this.prevPage} />
 					<Button active color='grey'>{ this.state.pageIndex + 1} / {this.state.maxPageIndex + 1 }</Button>
 					<Button content = 'Next' disabled = {this.state.pageIndex === this.state.maxPageIndex} onClick = {this.nextPage}/>
 				</Button.Group>
 
-				<List divided relaxed>
+				<List divided relaxed className = 'PokemonList'>
 					{
 						this.state.list.map(item => {
 							return <PokemonItem divided key = {item.id} value = {item} idList = {idList} />

@@ -21,8 +21,8 @@ class Home extends Component {
             <Router>
                 <div className="Home">
                     <h1>Welcome to MP2!</h1>
-                    <p><Link to = "/list">List</Link></p>
-                    <p><Link to = "/gallery">Gallery</Link></p>
+                    <Link to = "/list"><Button content = 'List' /></Link>
+                    <Link to = "/gallery"><Button content = 'Gallery' /></Link>
                     
                     
                     <Route path = "/list" component = {ListView}/>

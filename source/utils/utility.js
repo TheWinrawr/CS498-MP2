@@ -1,25 +1,53 @@
 import pokemonList from './pokemon.js'
+import typeList from './type-list.js'
+import statList from './stat-list.js'
+
 const _ = require('lodash');
 const axios = require('axios');
 
 let cache = {};
 
-exports.getPokemonList = function() {
-	let arr = [];
-	for(let k in pokemonList) {
-		if(pokemonList.hasOwnProperty(k)) {
-			arr.push(pokemonList[k]);
-		}
-	}
-	return arr;
-}
+/*============= FILTERING AND SORTING METHODS =================*/
 
 exports.filterByName = function(list, input) {
-
 	return _.filter(list, item => {
 		return item.name.toLowerCase().indexOf(input.toLowerCase()) !== -1;
 	});
 }
+
+exports.filterByType = function(list, types) {
+	types.forEach(type => {
+		list = _.filter(list, item => {
+			let searchFor = {
+				'type': {
+					'name': type.toLowerCase()
+				}
+			};
+			return _.find(item.types, searchFor) !== undefined;
+		})
+	})
+
+	console.log(list[0]);
+	return list;
+}
+
+exports.orderByStat = function(list, statName, order) {
+	if(statName === 'none' || statName === '') {
+		return list;
+	}
+	
+	return _.orderBy(list, item => {
+		let searchFor = {
+			'stat': {
+				'name': statName
+			}
+		};
+		let stat = _.find(item.stats, searchFor);
+		return stat.base_stat
+	}, order)
+}
+
+/*=============== LOADER ==============*/
 
 exports.loadPokemon = function(id) {
 	if(cache.hasOwnProperty(id)) {
@@ -40,11 +68,33 @@ exports.loadPokemon = function(id) {
 	
 }
 
+/*=============== LIST GETTERS ===============*/
+
+exports.getPokemonList = function() {
+	let arr = [];
+	for(let k in pokemonList) {
+		if(pokemonList.hasOwnProperty(k)) {
+			arr.push(pokemonList[k]);
+		}
+	}
+	return arr;
+}
+
+
 exports.getIdList = function(pokemon) {
 	return _.map(pokemon, item => {
 		return item.id;
 	});
 }
+
+exports.getTypeList = function() {
+	return typeList;
+}
+
+exports.getStatList = function() {
+	return statList;
+}
+
 /* ============ POKEMON DATA PARSING FUNCTIONS ===================*/
 
 exports.getTypes = function(pokemon) {

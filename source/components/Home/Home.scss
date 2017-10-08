@@ -1,8 +1,32 @@
-.Home {
+.Homef {
     color: skyblue;
     text-align: center;
     position: absolute;
     left: 50%;
     width: 80%;
     transform: translateX(-50%);
+}
+
+.Home {
+	color: skyblue;
+	text-align: center;
+	width: 80%;
+	margin: 0 auto;
+}
+
+.ListView {
+	width: 40%;
+	margin: 0 auto;
+}
+
+.SearchBar {
+	text-align: left;
+}
+
+.PokemonList {
+	position: relative;
+	text-align: left;
+	width: 80%;
+	left: 50%;
+	transform:  translateX(-50%);
 }
