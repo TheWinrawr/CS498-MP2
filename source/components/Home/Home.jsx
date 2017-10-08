@@ -1,41 +1,38 @@
 import React, { Component } from 'react'
 import { Button } from 'semantic-ui-react'
-import { Link } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Link, Redirect } from 'react-router-dom'
 
-import SearchBar from './SearchBar.jsx'
+import ListView from '../ListView/ListView.jsx'
+import GalleryView from '../GalleryView/GalleryView.jsx'
+import DetailView from '../DetailView/DetailView.jsx'
 
 import styles from './Home.scss'
-
-import pokemonList from '../../assets/pokemon.js'
 
 let axios = require('axios');
 
 class Home extends Component {
 	constructor(props) {
 		super(props)
-		this.state = {
-			pokeList: []
-		}
-		this.pokemon = [];
-	}
-
-	loadPokemon() {
-		Object.keys(pokemonList).forEach(k => {
-			this.pokemon.push({
-				id: k,
-				name: pokemonList[k].name
-			})
-		})
 	}
 
     render() {
-    	this.loadPokemon();
 
         return(
-            <div className="Home">
-                <h1>Welcome to MP2!</h1>
-                <SearchBar pokeList = {this.pokemon} />
-            </div>
+            <Router>
+                <div className="Home">
+                    <h1>Welcome to MP2!</h1>
+                    <p><Link to = "/list">List</Link></p>
+                    <p><Link to = "/gallery">Gallery</Link></p>
+                    
+                    
+                    <Route path = "/list" component = {ListView}/>
+                    <Route path = "/gallery" component = {GalleryView} />
+                    <Route path = "/detail/:id" component = {DetailView} />
+
+                    <Route exact path = "/" render = {() => (<Redirect to = "/list" />)} />
+                    
+                </div>
+            </Router>
         )
     }
 }

@@ -1,51 +1,40 @@
 import React, { Component } from 'react'
-import { Button } from 'semantic-ui-react'
+import { Image, List } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 
-import styles from './Home.scss'
+import PokemonList from '../PokemonList/PokemonList.jsx'
+
+import helper from '../../../utils/utility.js'
 
 const _ = require('lodash');
 
 class SearchBar extends Component {
 	constructor(props) {
 		super(props);
+		this.pokemonList = helper.getPokemonList();
+
 		this.state = {
-			list: []
+			list: this.pokemonList
 		}
 
+		//Binding functions cuz react doesn't do it automatically
 		this.filterList = this.filterList.bind(this);
 	}
 
 	filterList(e) {
-		let input = e.target.value.toLowerCase();
-		let filtered = _.filter(this.props.pokeList, item => {
-			return item.name.toLowerCase().indexOf(input) !== -1;
-		});
+		let input = e.target.value;
+		let filtered = helper.filterByName(this.pokemonList, input);
 		this.setState({list: filtered});
 	}
 
 	render() {
 		return (
-			<div>
+			<div className = "SearchBar">
 				<form>
 					<input type = "text" placeholder = "Search" onChange = {this.filterList} />
 				</form>
-				<List items = {this.state.list}/>
+				<PokemonList list = {this.state.list}/>
 			</div>
-		)
-	}
-}
-
-class List extends Component {
-	render() {
-		return (
-			<ul>
-			{
-				this.props.items.map(item => {
-					return <li>{item.name}</li>
-				})
-			}
-			</ul>
 		)
 	}
 }
