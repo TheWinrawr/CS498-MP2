@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import { Button, Image, Label, List } from 'semantic-ui-react'
 import { BrowserRouter as Router, Link, Route } from 'react-router-dom'
 
+import PropTypes from 'prop-types';
+
 import './type-colors.scss'
 
 import helper from '../../../utils/utility.js'
@@ -53,7 +55,7 @@ class PokemonList extends Component {
 	render() {
 		let idList = helper.getIdList(this.props.list);
 		return (
-			<div className>
+			<div>
 				<Button.Group>
 					<Button content = 'Prev' disabled = {this.state.pageIndex === 0} onClick = {this.prevPage} />
 					<Button active color='grey'>{ this.state.pageIndex + 1} / {this.state.maxPageIndex + 1 }</Button>
@@ -76,6 +78,10 @@ class PokemonList extends Component {
 	}
 }
 
+PokemonList.propTypes = {
+	list: PropTypes.array
+}
+
 class PokemonItem extends Component {
 	render() {
 		let name = this.props.value.name;
@@ -92,23 +98,21 @@ class PokemonItem extends Component {
 			<List.Item>
 				<Image avatar verticalAlign = 'middle' size = 'tiny' src = {imgSrc} />
 				<List.Content verticalAlign = 'middle'>
-					<Link to = {linkParams}><List.Header>{name}</List.Header></Link>
-					<List.Description>
-						<span className = {"type-" + types[0]}>{types[0]}</span> <span className = {"type-" + types[1]}>{types[1]}</span>
-					</List.Description>
+					<Link to = {linkParams}>
+						<List.Header>{name}</List.Header>
+						<List.Description>
+							<span className = {"type-" + types[0]}>{types[0]}</span> <span className = {"type-" + types[1]}>{types[1]}</span>
+						</List.Description>
+					</Link>
 				</List.Content>
 			</List.Item>
 		)
 	}
 }
 
-class Pokemon extends Component {
-	render() {
-		console.log(this.props.match);
-
-		return(<div>hiiiiiii</div>
-			);
-	}
+PokemonItem.propTypes = {
+	value: PropTypes.object,
+	idList: PropTypes.array
 }
 
 export default PokemonList

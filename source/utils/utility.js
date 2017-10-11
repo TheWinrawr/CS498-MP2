@@ -1,6 +1,7 @@
 import pokemonList from './pokemon.js'
 import typeList from './type-list.js'
 import statList from './stat-list.js'
+import genList from './generation-list.js'
 
 const _ = require('lodash');
 const axios = require('axios');
@@ -45,6 +46,13 @@ exports.orderByStat = function(list, statName, order) {
 		let stat = _.find(item.stats, searchFor);
 		return stat.base_stat
 	}, order)
+}
+
+exports.filterByGen = function(list, genKey) {
+	let gen = _.find(genList, {'key': genKey});
+	return _.filter(list, item => {
+		return item.id >= gen.start && item.id <= gen.end;
+	})
 }
 
 /*=============== LOADER ==============*/
@@ -93,6 +101,10 @@ exports.getTypeList = function() {
 
 exports.getStatList = function() {
 	return statList;
+}
+
+exports.getGenList = function() {
+	return genList;
 }
 
 /* ============ POKEMON DATA PARSING FUNCTIONS ===================*/

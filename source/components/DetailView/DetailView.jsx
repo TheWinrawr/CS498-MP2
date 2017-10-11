@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import { Button, Item, Container, Loader, Progress, Table } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 
+import PropTypes from 'prop-types'
+
 import helper from '../../utils/utility.js'
 
 const axios = require('axios');
@@ -249,6 +251,10 @@ class DetailView extends Component {
 
         )
     }
+}
+
+DetailView.propTypes = {
+    location: PropTypes.object
 }
 
 export default DetailView

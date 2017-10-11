@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import { Image, List, Form, Select } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 
+import PropTypes from 'prop-types';
+
 import PokemonList from '../PokemonList/PokemonList.jsx'
 
 import helper from '../../../utils/utility.js'
@@ -102,6 +104,10 @@ class SearchBar extends Component {
 			</div>
 		)
 	}
+}
+
+SearchBar.propTypes = {
+	updateList: PropTypes.func.isRequired
 }
 
 export default SearchBar
