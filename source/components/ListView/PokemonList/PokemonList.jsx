@@ -97,7 +97,7 @@ class PokemonItem extends Component {
 		return (
 			<List.Item>
 				<Image avatar verticalAlign = 'middle' size = 'tiny' src = {imgSrc} />
-				<List.Content verticalAlign = 'middle'>
+				<List.Content verticalAlign = 'middle' className = 'PokemonItem'>
 					<Link to = {linkParams}>
 						<List.Header>{name}</List.Header>
 						<List.Description>

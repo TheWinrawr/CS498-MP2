@@ -101,7 +101,7 @@ class GalleryItem extends Component {
         return (
             <Grid.Column>
                 <Link to = {linkParams}>
-                    <Item>
+                    <Item className = 'GalleryItem'>
                         <Item.Image size = 'tiny' src = {imgSrc} />
                         <Item.Content>
                             <Item.Header>{name}</Item.Header>
